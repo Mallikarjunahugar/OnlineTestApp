@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="d-flex justify-context-between p-3">
+            <div class="img">
+<img src="https://cdn.iconscout.com/icon/free/png-256/typescript-3772430-3151556.png" alt="logo" width="50">
+            </div>
+            <div class="Test-header">
+            <h4 style="font-family: cursive;">   Typescript Test!</h4>
+            <span style="font-style: italic;;">   {{name}}</span>
+        </div>
+        </div>
+       <ng-container *ngIf="!isTestcompleted">
+        <div class="d-flex justify-content-around py-3">
+            <div class="scroe">
+             <h5>{{points}}</h5>
+            </div>
+            <div class="question remain">
+            <span style="font-style: italic;">Question {{currentquestion+1}} of {{questionList.length}}</span>
+            </div>
+            <div class="timer">{{counter}} seconds
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSprF-WXJahXzxrlfm-9U7AZ_99FEGo1m7N3w&usqp=CAU" width="20">
+            
+            </div>
+        </div>
+        <div class="progress mb-3">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [ngStyle]="{'width':progress+'%'}" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="question">
+ <div class="card">
+    <h3>{{questionList[currentquestion]?.questionText}}</h3>
+</div>
+          </div>
+          <div class="options">
+<ol  *ngFor="let option of questionList[currentquestion]?.options">
+    <li (click)="answer(currentquestion+1,option)">
+        <div appChangeBg [iscorrect]="option.correct" class="card">
+            {{option.text}}
+        </div>
+    </li>
+   
+</ol>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button [disabled]="currentquestion===0" (click)="previousquestion()"><i class="fa text-primary fa-chevron-left fa-2x" aria-hidden="true"></i></button>
+            <button class="btn"(click)="resettest()"><i class="fa fa-refresh text-primary fa-2x" aria-hidden="true"></i></button>
+            <button class="btn" (click)="nextquestion()"><i class="fa text-primary fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+            
+          </div>
+       </ng-container>
+       <ng-container *ngIf="isTestcompleted">
+        <div class="row d-flex justify-content-between">
+        <img style ="width: 20x;" class ="img-fluid col-sm-5 mx-10" src="https://w7.pngwing.com/pngs/526/529/png-transparent-celebrate-celebrate-float-ribbon-thumbnail.png" alt="logo">
+       <div class="result text-center col-md-6 col-sm-12">
+        <h3>Congratulations!! <br>You have completed the Test.<br>Below is your result:</h3>
+        <p>Total questions Attempted :{{questionList.length}} </p>
+        <p>Total correct Answered : {{correctAnswer}} </p>
+        <p>Total wrong Answered : {{incorrectAnswer}}</p>
+       
+       <p>Your Test percentage is: {{((correctAnswer-incorrectAnswer)/questionList.length)*100}} %</p>
+        <p>If Percentage < 35% : Fail</p>
+               </div>
+               
+        </div>        
+    </ng-container>
+
+    </div>
+</div>
